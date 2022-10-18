@@ -1,0 +1,17 @@
+(seed (in "/dev/urandom" (rd 8)))
+(load "libgmp.l")
+(load "isprime.l")
+(load "random.l")
+(let A (mpz_create)
+   (mpz_init A)
+   (do 100000
+      (let N (longOdd (rand 1 256))
+         (at (0 . 10000) (prin ".") (flush))
+         (mpz_set_str A (format N))
+         (let (G (mpz_probab_prime_p A 8)  I (isprime N))
+            (cond
+               ((and (=0 G) (not I)))
+               ((and (gt0 G) I))
+               (T (quit "Boom!")) ) ) ) ) )
+(msg 'ok)
+(bye)

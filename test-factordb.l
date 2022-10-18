@@ -1,0 +1,10 @@
+(load "isprime.l")
+(in '(bzcat factordb-prp.bz2)
+   (until (eof)
+      (let N (format (line T))
+         (at (0 . 10000) (prin ".") (flush))
+         (or
+            (isprime N)
+            (quit "Boom!") ) ) ) )
+(msg 'ok)
+(bye)
